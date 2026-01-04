@@ -1,32 +1,42 @@
 # GraphQL Demo
 
-A GraphQL server demo project built with Apollo Server and Express.js.
+A full-stack GraphQL demo application with Apollo Server (backend) and Apollo Client (frontend).
 
 ## Project Structure
 
 ```
 gql-demo/
-└── server/          # GraphQL server implementation
-    ├── server.js    # Basic server setup
-    ├── server2.js   # Extended server with queries
-    ├── package.json
-    └── README.md    # Server-specific documentation
+├── server/                    # GraphQL server implementation
+│   ├── server.js             # Basic server setup
+│   ├── server2.js            # Main server with CRUD operations
+│   ├── schema.js             # GraphQL schema definitions
+│   ├── resolver.js           # Query and mutation resolvers
+│   ├── author.js             # Mock data
+│   ├── package.json
+│   └── README.md             # Server-specific documentation
+└── client/
+    └── gql-client-app/       # React + Apollo Client
+        ├── src/
+        │   ├── App.jsx       # Main component with queries
+        │   ├── main.jsx      # Apollo Provider setup
+        │   └── ...
+        ├── vite.config.js
+        └── package.json
 ```
 
 ## Getting Started
 
-### Installation
+### Server Setup
 
+**Installation**
 ```bash
 cd server
 npm install
 ```
 
-### Usage
-
 **Development Mode (with auto-restart)**
 ```bash
-npm run dev
+npm run dev2
 ```
 
 **Production Mode**
@@ -35,6 +45,23 @@ npm start
 ```
 
 The server will start on `http://localhost:3501/graphql`
+
+### Client Setup
+
+**Installation**
+```bash
+cd client/gql-client-app
+npm install
+```
+
+**Development Mode**
+```bash
+npm run dev
+```
+
+The client will start on `http://localhost:5173`
+
+> **Note:** Make sure the server is running before starting the client.
 
 ## GraphQL Schema
 
@@ -329,15 +356,38 @@ Response:
 
 ## Dependencies
 
-- `express`: Web server framework
-- `apollo-server-express`: GraphQL server
-- `graphql`: GraphQL implementation
+### Server
+- `express`: Web server framework (v4)
+- `apollo-server-express`: GraphQL server (v3)
 - `core-js`: Polyfills
 - `nodemon`: Auto-restart tool (dev dependency)
 
+### Client
+- `react`: Frontend library (v18)
+- `@apollo/client`: GraphQL client (v3.8.10)
+- `graphql`: GraphQL implementation
+- `vite`: Build tool and dev server
+
 ## Tech Stack
 
+**Backend:**
 - Node.js
 - Express.js v4
 - Apollo Server v3
 - GraphQL
+
+**Frontend:**
+- React 18
+- Apollo Client 3.8
+- Vite 7
+- CSS3
+
+## Features
+
+- ✅ GraphQL server with queries and mutations
+- ✅ CRUD operations (Create, Read, Update, Delete)
+- ✅ React client with Apollo Client integration
+- ✅ Real-time data fetching with useQuery hook
+- ✅ Styled UI components
+- ✅ GraphQL Playground for testing
+- ✅ Modular code structure
