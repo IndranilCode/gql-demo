@@ -216,7 +216,7 @@ Variables (add in the GraphQL Playground):
 
 ## Example Mutations
 
-### Create a new author
+### Mutation 1: Create a new author
 
 ```graphql
 mutation createNewAuthor($authorName: String!, $authorGender: String!) {
@@ -255,7 +255,7 @@ Response:
 }
 ```
 
-### Update an existing author
+### Mutation 2: Update an existing author
 
 ```graphql
 mutation updateAuthor($authorId: ID!, $authorName: String, $authorGender: String, $authorAge: Int) {
