@@ -59,6 +59,7 @@ The server will start on `http://localhost:3501/graphql`
 ### Mutations
 
 - `createAuthor(name: String!, gender: String)`: Creates a new author
+- `updateAuthor(id: ID!, name: String, gender: String, age: Int)`: Updates an existing author
 
 ## Example Queries
 
@@ -248,6 +249,47 @@ Response:
         "name": "Pradip Basu",
         "gender": "M",
         "age": null
+      }
+    }
+  }
+}
+```
+
+### Update an existing author
+
+```graphql
+mutation updateAuthor($authorId: ID!, $authorName: String, $authorGender: String, $authorAge: Int) {
+  updateAuthor(id: $authorId, name: $authorName, gender: $authorGender, age: $authorAge) {
+    id
+    info {
+      name
+      age
+      gender
+    }
+  }
+}
+```
+
+Variables (add in the GraphQL Playground):
+```json
+{
+  "authorId": "1",
+  "authorName": "Indranil Basu 2",
+  "authorGender": "M",
+  "authorAge": 40
+}
+```
+
+Response:
+```json
+{
+  "data": {
+    "updateAuthor": {
+      "id": "1",
+      "info": {
+        "name": "Indranil Basu 2",
+        "age": 40,
+        "gender": "M"
       }
     }
   }
