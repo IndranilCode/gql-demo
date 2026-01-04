@@ -122,6 +122,33 @@ Variables (add in the GraphQL Playground):
 }
 ```
 
+**Option 3: Fetch multiple authors with aliases**
+```graphql
+query($authorId1: ID!, $authorId2: ID!) {
+  author1: fetchAuthorById(id: $authorId1) {
+    info {
+      name
+      age
+    }
+  },
+  author2: fetchAuthorById(id: $authorId2) {
+    info {
+      name
+      age
+      gender
+    }
+  }
+}
+```
+
+Variables (add in the GraphQL Playground):
+```json
+{
+  "authorId1": "2",
+  "authorId2": "3"
+}
+```
+
 ## Dependencies
 
 - `express`: Web server framework
