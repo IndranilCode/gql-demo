@@ -176,6 +176,36 @@ Variables (add in the GraphQL Playground):
 }
 ```
 
+**Option 5: Using @skip directive to conditionally exclude fields**
+```graphql
+query($authorId1: ID!, $authorId2: ID!, $skipGender: Boolean!) {
+  author1: fetchAuthorById(id: $authorId1) {
+    info {
+      name
+      age
+    }
+  },
+  author2: fetchAuthorById(id: $authorId2) {
+    info {
+      name
+      age
+      gender @skip(if: $skipGender)
+    }
+  }
+}
+```
+
+Variables (add in the GraphQL Playground):
+```json
+{
+  "authorId1": "2",
+  "authorId2": "3",
+  "skipGender": true
+}
+```
+
+Set `skipGender` to `true` to exclude the gender field, or `false` to include it.
+
 ## Dependencies
 
 - `express`: Web server framework
