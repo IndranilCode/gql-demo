@@ -176,20 +176,21 @@ Variables (add in the GraphQL Playground):
 }
 ```
 
-**Option 5: Using @skip directive to conditionally exclude fields**
+**Option 5: Using @skip and @include directives for conditional fields**
 ```graphql
-query($authorId1: ID!, $authorId2: ID!, $skipGender: Boolean!) {
+query($authorId1: ID!, $authorId2: ID!, $skipGender2: Boolean!, $includeGender1: Boolean!) {
   author1: fetchAuthorById(id: $authorId1) {
     info {
       name
       age
+      gender @include(if: $includeGender1)
     }
   },
   author2: fetchAuthorById(id: $authorId2) {
     info {
       name
       age
-      gender @skip(if: $skipGender)
+      gender @skip(if: $skipGender2)
     }
   }
 }
@@ -200,11 +201,13 @@ Variables (add in the GraphQL Playground):
 {
   "authorId1": "2",
   "authorId2": "3",
-  "skipGender": true
+  "skipGender2": true,
+  "includeGender1": false
 }
 ```
 
-Set `skipGender` to `true` to exclude the gender field, or `false` to include it.
+- `@include(if: $includeGender1)`: Only includes the gender field if the variable is `true`
+- `@skip(if: $skipGender2)`: Skips the gender field if the variable is `true`
 
 ## Dependencies
 
