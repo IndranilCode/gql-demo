@@ -149,6 +149,33 @@ Variables (add in the GraphQL Playground):
 }
 ```
 
+**Option 4: Using fragments for reusable fields**
+```graphql
+query($authorId1: ID!, $authorId2: ID!) {
+  author1: fetchAuthorById(id: $authorId1) {
+    ...authorInfo
+  },
+  author2: fetchAuthorById(id: $authorId2) {
+    ...authorInfo
+  }
+}
+
+fragment authorInfo on Author {
+  info {
+    name
+    age
+  }
+}
+```
+
+Variables (add in the GraphQL Playground):
+```json
+{
+  "authorId1": "2",
+  "authorId2": "3"
+}
+```
+
 ## Dependencies
 
 - `express`: Web server framework
