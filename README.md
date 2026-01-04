@@ -56,6 +56,10 @@ The server will start on `http://localhost:3501/graphql`
 - `getSecondAuthor`: Returns the second author
 - `fetchAuthorById(id: ID!)`: Returns a specific author by ID
 
+### Mutations
+
+- `createAuthor(name: String!, gender: String)`: Creates a new author
+
 ## Example Queries
 
 Visit `http://localhost:3501/graphql` in your browser to access the GraphQL Playground, then try these queries:
@@ -176,7 +180,7 @@ Variables (add in the GraphQL Playground):
 }
 ```
 
-**Option 5: Using @skip and @include directives for conditional fields**
+**Option 5: Using @skip and/or @include directives for conditional fields**
 ```graphql
 query($authorId1: ID!, $authorId2: ID!, $skipGender2: Boolean!, $includeGender1: Boolean!) {
   author1: fetchAuthorById(id: $authorId1) {
@@ -201,13 +205,54 @@ Variables (add in the GraphQL Playground):
 {
   "authorId1": "2",
   "authorId2": "3",
-  "skipGender2": true,
-  "includeGender1": false
+  "includeGender1": false,
+  "skipGender2": true
 }
 ```
 
 - `@include(if: $includeGender1)`: Only includes the gender field if the variable is `true`
 - `@skip(if: $skipGender2)`: Skips the gender field if the variable is `true`
+
+## Example Mutations
+
+### Create a new author
+
+```graphql
+mutation createNewAuthor($authorName: String!, $authorGender: String!) {
+  createAuthor(name: $authorName, gender: $authorGender) {
+    id
+    info {
+      name
+      gender
+      age
+    }
+  }
+}
+```
+
+Variables (add in the GraphQL Playground):
+```json
+{
+  "authorName": "Pradip Basu",
+  "authorGender": "M"
+}
+```
+
+Response:
+```json
+{
+  "data": {
+    "createAuthor": {
+      "id": "4",
+      "info": {
+        "name": "Pradip Basu",
+        "gender": "M",
+        "age": null
+      }
+    }
+  }
+}
+```
 
 ## Dependencies
 

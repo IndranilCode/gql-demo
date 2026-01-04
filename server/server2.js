@@ -46,6 +46,9 @@ const typeDefs = `
         getSecondAuthor: Author,
         fetchAuthorById(id: ID!): Author
     }
+    type Mutation {
+        createAuthor(name: String!, gender: String): Author
+    }
 `;
 
 //Resolvers
@@ -57,6 +60,24 @@ const resolvers = {
     fetchAuthorById: (obj, {id}) => {
       return authors.find(author => author.id === id);
     },
+  },
+  Mutation: {
+    createAuthor: (obj, args) => {
+        //Actual method that should create author in DB
+        const id = String(authors.length + 1);
+        const { name , gender } =  args;
+
+        const newAuthor = {
+            id,
+            info: {
+                name,
+                gender
+            }
+        };
+
+        authors.push(newAuthor);
+        return newAuthor;
+    }
   },
 };
 
