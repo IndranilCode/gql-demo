@@ -40,6 +40,10 @@ const typeDefs = `
         age: Int,
         gender: String
     }
+    type DeleteMessage {
+        id: ID!,
+        message: String
+    }
     type Query {
         getAuthors: [Author],
         getFirstAuthor: Author,
@@ -47,7 +51,9 @@ const typeDefs = `
         fetchAuthorById(id: ID!): Author
     }
     type Mutation {
-        createAuthor(name: String!, gender: String): Author
+        createAuthor(name: String!, gender: String): Author,
+        updateAuthor(id: ID!, name: String, gender: String, age: Int): Author
+        deleteAuthor(id: ID!): DeleteMessage
     }
 `;
 
@@ -77,6 +83,40 @@ const resolvers = {
 
         authors.push(newAuthor);
         return newAuthor;
+    },
+    updateAuthor: (obj, { id, name, gender, age }) => {
+        const author = authors.find(author => author.id === id);
+        if (!author) {
+            throw new Error("Author not found");
+        }
+
+        const authorIndex = authors.indexOf(author);
+        if (name) {
+            author.info.name = name;
+        }
+        if (gender) {
+            author.info.gender = gender;
+        }
+        if (age) {
+            author.info.age = age;
+        }
+        authors[authorIndex] = { ...author, id };
+
+        return author;
+    },
+    deleteAuthor: (obj, { id }) => {
+        const author = authors.find(author => author.id === id);
+        if (!author) {
+            throw new Error("Author not found");
+        }
+
+        const authorIndex = authors.indexOf(author);
+        authors.splice(authorIndex, 1);
+
+        return {
+            id,
+            message: `Author with ID ${id} deleted successfully`
+        };
     }
   },
 };

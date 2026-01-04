@@ -60,6 +60,7 @@ The server will start on `http://localhost:3501/graphql`
 
 - `createAuthor(name: String!, gender: String)`: Creates a new author
 - `updateAuthor(id: ID!, name: String, gender: String, age: Int)`: Updates an existing author
+- `deleteAuthor(id: ID!)`: Deletes an author and returns a confirmation message
 
 ## Example Queries
 
@@ -291,6 +292,36 @@ Response:
         "age": 40,
         "gender": "M"
       }
+    }
+  }
+}
+```
+
+### Mutation 3: Delete an author
+
+```graphql
+mutation deleteAuthor($authorId : ID!) {
+  deleteAuthor(id: $authorId) {
+    id
+    message
+  }
+}
+```
+
+Variables (add in the GraphQL Playground):
+```json
+{
+  "authorId": "2"
+}
+```
+
+Response:
+```json
+{
+  "data": {
+    "deleteAuthor": {
+      "id": "2",
+      "message": "Author with ID 2 deleted successfully"
     }
   }
 }
